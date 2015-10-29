@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--link rel="shortcut icon" href="/assets/images/logo.png"-->
+    <title>如何用 QPython 极速开发 PyConChina App</title>
+    <!-- Bootstrap core CSS -->    
+    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://builder.qpython.com/static/css/public.css" rel="stylesheet" />
+    <!-- SCRIPTS -->
+    <script src="../assets/bootstrap/js/jquery.min.js"></script>   
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">     
+        $(document).ready(function() {
+            $('#step1-btn').click(function(e){
+                if (window.milib==undefined) {
+                    alert("在 QPython 中浏览该页面才能运行")
+                } else {
+                    window.milib.qeditor($('#step1-code').val())
+                }
+            });
+        });
+      
+    </script>
+    <style type="text/css">
+      .fc-button-agendaDay{
+        display:none;
+      }
+      .main {
+        padding: 0px;
+      }
+      .calendar_container{
+        width: 100%;
+      }    
+      .glyphicon-chevron-right, .glyphicon-chevron-down{
+        margin-top: 20px;
+      }  
+      .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav-tabs>li>a,.nav-tabs>li>a:hover {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav>li>a {
+        text-align:center;
+      }
+    </style>   
+  </head>  
+  <body>
+      <style type="text/css">
+          .container-fluid {
+            margin-top: 0px;
+          }
+          .col-xs-6{
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .col-xs-3{
+            text-align:center;
+          }
+          .nav>li>a {
+            padding: 8px 15px;
+          }
+          .badge {
+            background-color: cadetblue;
+          }
+      </style>
+      <nav class="navbar-inverse" role="navigation" id="navigation" style="background:#f9f9f9;border-bottom:1px solid #eee">
+        <div class="container" >
+          <div class="navbar-header">
+             <div style="clear:both"></div>
+             <div style="padding:10px 15px 10px 15px">
+               <h4> 
+                    首页及导航
+               </h4> 
+
+             </div>
+          </div>          
+      </nav>
+      <div class="fakeloader"></div>
+      <div class="container-fluid">  
+        <div class="con-glyphicons">
+          <div class="container-fluid" style="margin-top:0px;">
+            <div class="">
+              <ul id="myTab" class="nav nav-tabs" style="background:#fafafa;display:none">                        
+                <li class="active col-xs-6"><a href="#home" data-toggle="tab">Export</a></li>
+                <li class="col-xs-6"><a href="#about" data-toggle="tab">About</a></li>
+              </ul>                 
+              <div class="table-responsive">                     
+                <div id="myTabContent" class="tab-content">
+                   <div id="myAlert"></div> 
+                   <div class="tab-pane fade in active" id="home">
+                      <div class="main container" style="padding: 20px;">
+                        <p>
+                            <span style='color:grey'>在这一章节中，我们将会了解到如何调用弹出式菜单，以及有什么默认的样式、JS库可以使用以及如何在一个main.py文件里定义模版</span>                        
+<h5>使用抽屉式菜单</h5>
+QPython 提供了默认的JSAPI -  milib.showDrawerMenu(MenusJsonString) 来调用抽屉式菜单
+<br />
+需要在 main.py 力加入 "#qpy:drawer" 来声明使用抽屉式菜单，随后只需要执行对应的JS语句即可，如
+<pre>
+milib.showDrawerMenu('{"menu":[{"title":"北京","url":"http://127.0.0.1:8080/beijing/agenda","icon":""},{"title":"上海","url":"http://127.0.0.1:8080/shanghai/agenda","icon":""},{"title":"广州","url":"http://127.0.0.1:8080/guangzhou/agenda","icon":""},{"title":"聊天室（New）","url":"http://127.0.0.1:8080/chat","icon":""}]}')
+</pre>
+
+
+<h5>QPython 打包WebApp时将会集成 bootstrap3 及 jquery</h5>
+开发时，在项目目录新建assets目录，将bootstrap.min.css 和 bootstrap.min.js 以及 jquery.min.js 放入即可
+
+<h5>最后，完成首页以及导航</h5>
+在前一步的基础上，增加了全局页面模板 PAGE_TEMP 定义，我们扩展了home方法
+
+<textarea style="box-shadow:inset 0 1px 1px rgba(0,0,0,0.1);border:1px solid #ddd;width:100%;min-height:250px" id="step1-code">
+#-*-coding:utf-8-*-  
+#qpy:webapp:PyConChina2015
+#qpy:drawer
+#qpy://127.0.0.1:8080/
+"""
+PyConChina2015 App's sourcecode
+
+@Author river
+"""
+
+from bottle import Bottle, ServerAdapter
+from bottle import run, debug, route, error, static_file, template, redirect
+
+import urllib2
+import os
+import json
+#### 常量定义 #########
+ASSETS = "/assets/"
+ROOT = os.path.dirname(os.path.abspath(__file__))
+
+
+######### QPYTHON WEB SERVER ###############
+
+class MyWSGIRefServer(ServerAdapter):
+    server = None
+
+    def run(self, handler):
+        from wsgiref.simple_server import make_server, WSGIRequestHandler
+        if self.quiet:
+            class QuietHandler(WSGIRequestHandler):
+                def log_request(*args, **kw): pass
+            self.options['handler_class'] = QuietHandler
+        self.server = make_server(self.host, self.port, handler, **self.options)
+        self.server.serve_forever()
+
+    def stop(self):
+        #sys.stderr.close()
+        import threading 
+        threading.Thread(target=self.server.shutdown).start() 
+        #self.server.shutdown()
+        self.server.server_close() 
+        print "# QWEBAPPEND"
+
+
+######### BUILT-IN ROUTERS ###############
+def __exit():
+    global server
+    server.stop()
+
+def __ping():
+    return "ok"
+
+def server_static(filepath):
+    return static_file(filepath, root=ROOT+'/assets')
+
+
+########################################
+PAGE_TEMP = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<script src="{{assets}}jquery.min.js"></script>
+<link href="{{assets}}bootstrap.min.css" rel="stylesheet" />
+<script src="{{assets}}bootstrap.min.js"></script>   
+<script language='javascript'>
+$(document).ready(function(){
+%s
+});
+</script>
+<style>
+.btn-info { background-color:#ffe052;border-color:#ffe052;color:black}
+.placeholder { padding-top:10px;padding-bottom:10px }
+.col-xs-6, .col-sm-4 { padding:10px }
+ul{ list-style-type: none; margin:0px;padding:0px }
+tbody tr th:first-child{ width:80px }
+table.nolimit tbody tr th:first-child{ width:auto }
+.tt { padding-left:10px; }
+.float-right { float:right }
+.float-left { float:left }
+.center { text-align:center }
+.p5 { padding:5px }
+.circle {
+width: 100%%;
+height: 150px;
+border-radius: 1px; 
+border-color: 1px solid #ddd;
+border: solid 1px #ddd;
+}
+.circle-view {
+background-color: #fdfdfd;
+}
+.circle-text {
+padding: 15px 15px 15px 15px;
+text-align: center;
+font-size:18px;
+}
+</style>
+</head>  
+<body>
+%s
+</body>
+</html>
+""".replace("{{assets}}",ASSETS)
+
+def home():
+    JS = ""
+    CONTENT = """
+<nav class="navbar-inverse" role="navigation" id="navigation" style="background:#f9f9f9;border-bottom:1px solid #eee">
+    <div class="container">
+        <ul>
+            <a class="navbar-brand" style='color: #000;font-size: 23px;font-weight: bold;padding:10px;margin-left:0px' href="#">
+                <img src="http://pyconcn.qiniucdn.com/zoomquiet/res/logo/150801-cnpycon-barnner-h80.png" height="32">
+                <span></span>                      
+            </a>     
+            <div style="float:right;margin: 10px 10px 0 0;" >
+                <button onclick="milib.openUrl('http://cn.pycon.org/2015/proposals.html')" class="btn btn-info" >
+                    提交主题
+                </button>                    
+            </div>             
+        </ul>
+        <div style="clear:both"></div>
+        <div style="padding:0px 15px 10px 15px">
+                  PyCon 是全球 Pythoneer 最盛大的年度聚会,由 PSF(Python 基金会)支持,致力于营造愉快的多元化的 Python 技术主题大会. PyConChina 是由 CPyUG(华蠎用户组)获得授权举办的 中国PyCon 年会. 迄今已是第五届, 由 PyChina.org 发起,CPyUG/TopGeek 等社区协同,在 9月13~27日 (程序员节 前后), 北京/上海/广州 联办.
+        </div>
+        
+    </div>          
+</nav>
+<div class="table-responsive" style='border:0px'>  
+  <div class="container">
+    <div class="row" style='border:0px;padding-left:10px;padding-right:10px;padding-top:10px'>
+
+          <div class="col-xs-6 col-sm-4 placeholder" onclick="location.href='/beijing/agenda'" >
+            <div class="col-lg-4 circle circle-view">
+              <span style="">
+                <br />
+                <br />
+                <br />
+                <a class="circle-text">
+                    PyCon 北京 
+                </a>
+                <span style="color:grey;padding-left:15px;">火热报名中</span>
+              </span>                    
+            </div><!-- /.col-lg-4 -->
+          </div>
+
+          <div class="col-xs-6 col-sm-4 placeholder" onclick="location.href='/shanghai/agenda'" >
+            <div class="col-lg-4 circle circle-view">
+              <span>
+                <br />
+                <br />
+                <br />
+                <a class="circle-text" >
+                    PyCon 上海 
+                </a>
+                <span style="color:grey;padding-left:15px;">火热报名中</span>
+              </span>                    
+            </div><!-- /.col-lg-4 -->
+          </div>
+
+          <div class="col-xs-6 col-sm-4 placeholder" onclick="location.href='/guangzhou/agenda'" >
+            <div class="col-lg-4 circle circle-view">
+              <span>
+                <br />
+                <br />
+                <br />
+                <a class="circle-text" >
+                    PyCon 广州 
+                </a>
+                <span style="color:grey;padding-left:15px;">火热报名中</span>
+
+              </span>                    
+            </div><!-- /.col-lg-4 -->
+          </div>
+    </div>
+  </div>
+</div>
+                        
+<script language='javascript'>milib.showDrawerMenu('{"menu":[{"title":"北京","url":"http://127.0.0.1:8080/beijing/agenda","icon":""},{"title":"上海","url":"http://127.0.0.1:8080/shanghai/agenda","icon":""},{"title":"广州","url":"http://127.0.0.1:8080/guangzhou/agenda","icon":""},{"title":"聊天室（New）","url":"http://127.0.0.1:8080/chat","icon":""}]}')</script>
+"""
+
+    return template(PAGE_TEMP % (JS, CONTENT))
+
+
+
+######### WEBAPP ROUTERS ###############
+app = Bottle()
+app.route('/', method='GET')(home)
+app.route('/__exit', method=['GET','HEAD'])(__exit)
+app.route('/__ping', method=['GET','HEAD'])(__ping)
+app.route('/assets/:filepath', method='GET')(server_static)
+
+try:
+    server = MyWSGIRefServer(host="127.0.0.1", port="8080")
+    app.run(server=server,reloader=False)
+except Exception,ex:
+    print "Exception: %s" % repr(ex)
+
+
+</textarea>
+
+<div style='text-align:center;padding:10px'>
+<a class="btn btn-lg btn-success" id='step1-btn' href="#" role="button">在 QPython 中运行</a>
+</div>
+
+上传到QPython之后，可以看到首页，同时抽屉式菜单正常工作了。接下来，我们需要显示每个城市的日程了。
+<br />
+
+
+接下来，就开始实现首页以及导航了
+                        </p>
+                        <br />
+                        <br />
+
+                        <a href='build_webapp_framework.html' style='float:left'><< 上一步（新建项目） </a>
+                        <a href='agenda_show.html' style='float:right'> 下一步（日程展示）>></a>
+                      </div>
+                   </div>
+                </div>   
+              </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </body>
+</html>

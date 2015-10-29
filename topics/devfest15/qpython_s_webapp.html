@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--link rel="shortcut icon" href="/assets/images/logo.png"-->
+    <title>如何用 QPython 极速开发 PyConChina App</title>
+    <!-- Bootstrap core CSS -->    
+    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://builder.qpython.com/static/css/public.css" rel="stylesheet" />
+    <!-- SCRIPTS -->
+    <script src="../assets/bootstrap/js/jquery.min.js"></script>   
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">     
+      $(function(){
+      })
+      
+    </script>
+    <style type="text/css">
+      .fc-button-agendaDay{
+        display:none;
+      }
+      .main {
+        padding: 0px;
+      }
+      .calendar_container{
+        width: 100%;
+      }    
+      .glyphicon-chevron-right, .glyphicon-chevron-down{
+        margin-top: 20px;
+      }  
+      .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav-tabs>li>a,.nav-tabs>li>a:hover {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav>li>a {
+        text-align:center;
+      }
+    </style>   
+  </head>  
+  <body>
+      <style type="text/css">
+          .container-fluid {
+            margin-top: 0px;
+          }
+          .col-xs-6{
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .col-xs-3{
+            text-align:center;
+          }
+          .nav>li>a {
+            padding: 8px 15px;
+          }
+          .badge {
+            background-color: cadetblue;
+          }
+      </style>
+      <nav class="navbar-inverse" role="navigation" id="navigation" style="background:#f9f9f9;border-bottom:1px solid #eee">
+        <div class="container" >
+          <div class="navbar-header">
+             <div style="clear:both"></div>
+             <div style="padding:10px 15px 10px 15px">
+               <h4> 
+                    QPython's WebApp 介绍
+               </h4> 
+
+             </div>
+          </div>          
+      </nav>
+      <div class="fakeloader"></div>
+      <div class="container-fluid">  
+        <div class="con-glyphicons">
+          <div class="container-fluid" style="margin-top:0px;">
+            <div class="">
+              <ul id="myTab" class="nav nav-tabs" style="background:#fafafa;display:none">                        
+                <li class="active col-xs-6"><a href="#home" data-toggle="tab">Export</a></li>
+                <li class="col-xs-6"><a href="#about" data-toggle="tab">About</a></li>
+              </ul>                 
+              <div class="table-responsive">                     
+                <div id="myTabContent" class="tab-content">
+                   <div id="myAlert"></div> 
+                   <div class="tab-pane fade in active" id="home">
+                      <div class="main container" style="padding: 20px;">
+                        <p>
+相比于常见的 WebApp 方案， QPython 的 WebApp 方案有以下优势：
+<br />
+<ul>
+<li><strong>强大的Python解析器</strong> 能在本地进行各种复杂运算和处理工作</li>
+<li><strong>海量的Python世界的第三方库</strong> 允许你使用各种姿势开发</li>
+<li><strong>灵活的开发集成环境</strong> 无需搭建环境，开发到导出Apk，都可以在QPython上完成</li>
+<li><strong>集成 SL4A</strong> 安卓的精彩特性不错过</li>
+</ul>
+<div style='text-align:center;padding-top:20px'>
+<img src='../assets/img/landscape.png' width='100%' style='max-width:480px'>
+<br />
+<span style='color:grey'>图 - QPython 开发面板</span>
+</div>
+
+<br />
+<br />
+QPython 默认集成了 <a href='http://bottlepy.org/docs/dev/index.html'>Bottle</a> ，当然也可以使用其他的如Django, Flask 框架
+<span>(可用 pip_client.py 安装)</span>
+
+此外，QPython 导出的APK也会默认集成 <a href='jquery.com'>JQuery</a> 和 <a href='http://getbootstrap.com'>Bootstrap3</a>。
+
+<br />
+接下来，我们就开始讲 PyConChina 这个应用是怎么用 QPython 做出来的。
+                        </p>
+                        <br />
+                        <br />
+                        <a href='index.html' style='float:left'><< 返回目录 </a>
+                        <a href='pyconchina_app.html' style='float:right'> 下一章（为何用QPython） >></a>
+                      </div>
+                   </div>
+  
+                </div>   
+              </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </body>
+</html>

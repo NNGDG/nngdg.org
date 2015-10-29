@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--link rel="shortcut icon" href="/assets/images/logo.png"-->
+    <title>如何用 QPython 极速开发 PyConChina App</title>
+    <!-- Bootstrap core CSS -->    
+    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://builder.qpython.com/static/css/public.css" rel="stylesheet" />
+    <!-- SCRIPTS -->
+    <script src="../assets/bootstrap/js/jquery.min.js"></script>   
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">     
+      $(function(){
+      })
+      
+    </script>
+    <style type="text/css">
+      .fc-button-agendaDay{
+        display:none;
+      }
+      .main {
+        padding: 0px;
+      }
+      .calendar_container{
+        width: 100%;
+      }    
+      .glyphicon-chevron-right, .glyphicon-chevron-down{
+        margin-top: 20px;
+      }  
+      .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav-tabs>li>a,.nav-tabs>li>a:hover {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav>li>a {
+        text-align:center;
+      }
+    </style>   
+  </head>  
+  <body>
+      <style type="text/css">
+          .container-fluid {
+            margin-top: 0px;
+          }
+          .col-xs-6{
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .col-xs-3{
+            text-align:center;
+          }
+          .nav>li>a {
+            padding: 8px 15px;
+          }
+          .badge {
+            background-color: cadetblue;
+          }
+      </style>
+      <nav class="navbar-inverse" role="navigation" id="navigation" style="background:#f9f9f9;border-bottom:1px solid #eee">
+        <div class="container" >
+          <div class="navbar-header">
+             <div style="clear:both"></div>
+             <div style="padding:10px 15px 10px 15px">
+               <h4> 
+                为何使用 QPython
+               </h4> 
+
+             </div>
+          </div>          
+      </nav>
+      <div class="fakeloader"></div>
+      <div class="container-fluid">  
+        <div class="con-glyphicons">
+          <div class="container-fluid" style="margin-top:0px;">
+            <div class="">
+              <ul id="myTab" class="nav nav-tabs" style="background:#fafafa;display:none">                        
+                <li class="active col-xs-6"><a href="#home" data-toggle="tab">Export</a></li>
+                <li class="col-xs-6"><a href="#about" data-toggle="tab">About</a></li>
+              </ul>                 
+              <div class="table-responsive">                     
+                <div id="myTabContent" class="tab-content">
+                   <div id="myAlert"></div> 
+                   <div class="tab-pane fade in active" id="home">
+                      <div class="main container" style="padding: 20px;">
+                        <p>
+                            <ul>
+                                <li>几个星期前<br />ZQ问：有没有简单方案搞个 PyConChina App <br />我答：QPython里给你做个自动BuildApk功能，具体业务开发你们搞吧，我们创业太忙... <br />ZQ 曰：可以的</li>
+                                <li>过了好久之后 <br /><br /><img src='../assets/img/zq_yue3.png' width='100%' style='max-width:400px'><!--img src='../assets/img/zq_yue2.png' width='100%' style='max-width:400px'--><br /></li>
+                                <li> 好吧，我也想知道<span style='font-size:20px'>"1小时"</span>到底能不能做出来 ...
+                                </li>
+                            </ul>
+                        </p>
+                        <br />
+                        <br />
+                        <a href='qpython_s_webapp.html' style='float:left'><< 上一步（WebApp简介）</a>
+                        <a href='app_design.html' style='float:right'> 下一步（App 设计）>></a>
+                      </div>
+                   </div>
+                      
+                </div>   
+              </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </body>
+</html>

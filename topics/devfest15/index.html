@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>南宁GDG第一届DevFest - G友汇</title>
+    <!-- Bootstrap core CSS -->    
+    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://builder.qpython.com/static/css/public.css?v=2" rel="stylesheet" />
+    <!-- SCRIPTS -->
+    <script src="../assets/bootstrap/js/jquery.min.js"></script>   
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">     
+      $(function(){
+        if(location.hash=="#succeess"){
+          $("#myAlert").html("<div class='milib.alert milib.alert-success'><span class='glyphicon glyphicon-ok-sign'></span><strong> Success</strong></div>").delay(2000).fadeOut("fast");
+          location.hash='';
+        }
+        $("#btn-submit").attr('change', function(){
+        })
+      })
+      function check(){    
+        
+        var filepath = $("input[name='logo']").val();  
+        var re_img = /\.(png)$/
+        if (!re_img.test(filepath)) {
+          milib.alert('Please upload the png file as the QApplication icon')
+          $("input[name='logo']").focus()
+          return false;
+        }
+        var app_id = $("#app_id").val()
+        if(app_id==''||app_id==null){
+          milib.alert("Please input the application Id")
+          $("#app_id").focus()
+          return false;
+        }
+        var title = $("#title").val()
+        if(title==""||title==null){
+          milib.alert("Please input the application name")
+          $("#title").focus()
+          return false;
+        }
+        var email = $("#email").val()
+        var reg_email = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //邮箱格式
+        if(email==""||email==null){
+          milib.alert("Please input correct email")
+          $("#email").focus()
+          return false;
+        }
+        if(!reg_email.test(email)){
+          milib.alert("Please input email")
+          $("#email").focus()
+          return false;
+        }
+        var re_file = /\.(py)$/
+        var main_file = $("#main_file").val()
+        if(!re_file.test(main_file)){
+          milib.alert("Please upload the QApplication's launch script file")
+          $("#main_file").focus()
+          return false;
+        }
+        
+        return true;
+      }
+    </script>
+    <style type="text/css">
+      .thumbnail {
+        padding-top:14px
+      }
+      .col-md-3 {
+        padding:10px
+      }
+      .fc-button-agendaDay{
+        display:none;
+      }
+      .main {
+        padding: 0px;
+      }
+      .calendar_container{
+        width: 100%;
+      }    
+      .glyphicon-chevron-right, .glyphicon-chevron-down{
+        margin-top: 20px;
+      }  
+      .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav-tabs>li>a,.nav-tabs>li>a:hover {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav>li>a {
+        text-align:center;
+      }
+    </style>   
+  </head>  
+  <body>
+    <div style='display:none'><img src='http://pp.myapp.com/ma_pic2/0/shot_12142282_1_1440384064/550'></div>
+      <style type="text/css">
+          .container-fluid {
+            margin-top: 0px;
+          }
+          .col-xs-6{
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .col-xs-3{
+            text-align:center;
+          }
+          .nav>li>a {
+            padding: 8px 15px;
+          }
+          .badge {
+            background-color: cadetblue;
+          }
+      </style>
+      <nav class="navbar-inverse" role="navigation" id="navigation" style="background:#f9f9f9;border-bottom:1px solid #eee">
+        <div class="container" >
+          <div class="navbar-header">
+             
+             <div style="clear:both"></div>
+             <div style="padding:20px">
+               <h1 style='text-align:center'> 
+                    南宁GDG第一届DevFest - G友汇
+               </h1> 
+                <div style='text-align:center;padding-top:30px'>
+                    Google DevFest 是全球各地 Google 开发者社区(GDG) 组织的针对Google技术开发者、爱好者所举办的本地技术交流活动。<br /><br />本届活动是南宁GDG的第一届DevFest，我们的活动内容包括 <b>A 南宁GDG介绍</b> <b>B Google技术开发快速分享</b> <b>C DevFest实战互动活动</b>。
+                <br />
+                <br />
+                </div>
+                <div style='text-align:center'><img src='../assets/nndevfest.png' ></div>
+             </div>
+          </div>          
+      </nav>
+      <div class="fakeloader"></div>
+      <div class="container-fluid">  
+        <div class="con-glyphicons">
+          <div class="container-fluid" style="margin-top:0px;">
+            <div class="">
+              <ul id="myTab" class="nav nav-tabs" style="background:#fafafa">                        
+                <li class="active col-xs-6"><a href="#home" data-toggle="tab">内容</a></li>
+                <li class="col-xs-6"><a href="#about" data-toggle="tab">关于</a></li>
+              </ul>                 
+              <div class="table-responsive">                     
+                <div id="myTabContent" class="tab-content">
+                   <div id="myAlert"></div> 
+                   <div class="tab-pane fade in active" id="home">
+                      <div class="main container" style="padding: 20px;">
+<div class='row'>
+
+<div class="col-md-3">
+            <div class="thumbnail">
+                <img width="80px" src="../assets/img/p1.png">
+                <div class="caption">
+                    <h3 align="center">关于南宁GDG</h3>
+                    <p>南宁谷歌技术开发者小组由绿城南宁的开发者们、大学生们和高校教师们、以及IT企业职业人士组成。 
+
+</p>
+                    <p>
+                        <a class="btn btn-success" href="qpython_s_webapp.html" style="width: 100%">详情</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+             <div class="col-md-3">
+            <div class="thumbnail">
+                <img width="80px" src="../assets/img/p2.png">
+                <div class="caption">
+                    <h3 align="center">谷歌技术今年的发展</h3>
+                    <p>Android M，物联网系统Brillo, Google X, Alphabet ... <br /><br /></p>
+                    <p>
+                        <a class="btn btn-success" href="pyconchina_app.html" style="width: 100%">详情</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+             <div class="col-md-3">
+            <div class="thumbnail">
+                <img width="80px" src="../assets/img/p3.png">
+                <div class="caption">
+                    <h3 align="center">为何 & 如何加入</h3>
+                    <p>加入这一开放的技术社区，共同学习、分享、创新！<br /><br /></p>
+                    <p>
+                        <a class="btn btn-success" href="app_design.html" style="width: 100%">详情</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+             <div class="col-md-3">
+            <div class="thumbnail">
+                <img width="80px" src="../assets/img/p4.png">
+                <div class="caption">
+                    <h3 align="center">如何参与GDG活动</h3>
+                    <p>A ) 活动参与者<br />B ) 某次活动当志愿者<br />  C ) 长期志愿者</p>
+                    <p>
+                        <a class="btn btn-success" href="build_webapp_framework.html" style="width: 100%">详情</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+             <div class="col-md-3">
+            <div class="thumbnail">
+                <img width="80px" src="../assets/img/p5.png">
+                <div class="caption">
+                    <h3 align="center">关于DevFest</h3>
+                    <p>开发者节，是Google赞助发起的全球性开发者活动。通过参加该活动，开发者能互相学习，交流分享，共建社区。<br /><br /></p>
+                    <p>
+                        <a class="btn btn-success" href="navigation.html" style="width: 100%">详情</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+             <div class="col-md-3">
+            <div class="thumbnail">
+                <img width="80px" src="../assets/img/p6.png">
+                <div class="caption">
+                    <h3 align="center">技术开发快速分享</h3>
+                    <p> A 如何用 QPython 快速开发安卓App<br />B 如何巧用收藏栏开发Chrome插件<br />C 欢迎其他人分享<br /><br /></p>
+                    <p>
+                        <a class="btn btn-success" href="agenda_show.html" style="width: 100%">详情</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+             <div class="col-md-3">
+            <div class="thumbnail">
+                <img width="80px" src="../assets/img/p7.png">
+                <div class="caption">
+                    <h3 align="center">DevFest互动实战</h3>
+                    <p>A 点子达人讲述你们的点子吸引人参与 <br />B 未加入团队的人自由组队<br />C 共同讨论点子及实现<br />D 分工及实现</p>
+                    <p>
+                        <a class="btn btn-success" href="chatroom.html" style="width: 100%">详情</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+             <div class="col-md-3">
+            <div class="thumbnail">
+                <img width="80px" src="../assets/img/p9.png">
+                <div class="caption">
+                    <h3 align="center">后会有期</h3>
+                    <p>确定下次聚会来看本次成果展示的日期<br /><br /><br /><br /></p>
+
+                    <p>
+                        <a class="btn btn-success" href="apkbuilder.html" style="width: 100%">详情</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+
+
+                      </div>
+                   </div>
+                   <div class="tab-pane fade" id="about">
+                      <div class="main container" style="padding: 20px;">
+                    
+                       <!--TODO--> 
+
+<h3>主题演讲者</h3>
+<hr />
+<div class="row company-row1">
+    <div class="col-sm-6">
+        <div class="col-sm-3"> <img src="https://avatars2.githubusercontent.com/u/3059527?v=3&amp;s=160" style="width:80px; height:80px;"> </div>
+        <div class="col-sm-8">
+        <h4>River</h4>
+        <p>我是River, QPython作者， 前Zynga任高级系统研发工程师，前绿盟科技产品经理，前新浪邮件系统开发工程师。我喜欢历史，旅行，电影。</p>
+        </div>
+    </div>
+    
+  </div>
+
+
+<br />
+<h3>下载资源</h3>
+<hr />
+<div class="comment-content">
+    <table class="tw100">
+      <tbody>
+        <tr>
+          <td>
+            <p><strong>QPython</strong> 是一个运行在安卓上的Python脚本引擎，它整合了Python解释器、Console、编辑器和SL4A库等等。可以让你在安卓设备上运行Python程序。它就是安卓上的Python！<br />它提供的开发工具能让你在安卓设备上方便地开发Python脚本和项目。</p>
+          </td>
+          <td style="width:80px; padding: 6px;">
+            <a href="http://www.qpython.com">
+            <img class="size-full wp-image-171" title="logo_final_64" style="width:64px" src="http://quseit.com/images/qpy.png" alt=""><br>
+            </a>
+          </td>
+        </tr>
+         <tr>
+          <td colspan="2">
+            <p>Get QPython For PyConChina2015:</p>
+            <a href="http://www.pgyer.com/qpython" target="_blank" class="btn btn-default btn-lg btn-block">安装 QPython for PyConChina 专用版</a>
+
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<br />
+<div class="comment-content">
+    <table class="tw100">
+      <tbody>
+        <tr>
+          <td>
+            <p><strong>PyConChina</strong> PyCon 是全球 Pythoneer 最盛大的年度聚会,由 PSF(Python 基金会)支持,致力于营造愉快的多元化的 Python 技术主题大会. PyConChina 是由 CPyUG(华蠎用户组)获得授权举办的 中国PyCon 年会. 迄今已是第五届, 由 PyChina.org 发起,CPyUG/TopGeek 等社区协同,在 9月13~27日 (程序员节 前后), 北京/上海/广州 联办。该APP由QPython团队使用QPython的WEBAPP模式研发。</p>
+          </td>
+          <td style="width:80px; padding: 6px;">
+            <a href="http://www.qpython.com">
+            <img class="size-full wp-image-171" title="logo_final_64" style="width:64px" src="http://pp.myapp.com/ma_icon/0/icon_12142282_1440384066/96" alt=""><br>
+            </a>
+          </td>
+        </tr>
+         <tr>
+          <td colspan="2">
+            <a href="http://a.app.qq.com/o/simple.jsp?pkgname=org.pycon.cn.qpy" target="_blank" class="btn btn-default btn-lg btn-block" style='max-length:300px'>安装 PyConChina2015 专用版</a>
+
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<br />
+<br />
+<br />
+<br />
+
+                      </div>
+                   </div>   
+                </div>   
+              </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+<script language='javascript'>milib.showDrawerMenu('{"menu":[{"title":"ApkBuilder(Beta)","url":"http://builder.qpython.com","icon":""},{"title":"PyConChina教程","url":"http://qpython.org/pyconchina2015/","icon":""}]}')</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?a1bbaec5032f22cd1e5bb2cd64b0d1b0";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+  </body>
+</html>
