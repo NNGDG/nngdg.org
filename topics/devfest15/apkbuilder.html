@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--link rel="shortcut icon" href="/assets/images/logo.png"-->
+    <title>如何用 QPython 极速开发 PyConChina App</title>
+    <!-- Bootstrap core CSS -->    
+    <link href="../assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://builder.qpython.com/static/css/public.css" rel="stylesheet" />
+    <!-- SCRIPTS -->
+    <script src="../assets/bootstrap/js/jquery.min.js"></script>   
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">     
+      $(document).ready(function() {
+
+        if (window.milib==undefined) {
+            $('#back_to_builder').click(function(){
+                alert("需要在 QPython 中浏览该页面才能运行")
+            });
+        } else {
+            $('#back_to_builder').click(function(){
+                location.href='http://builder.qpython.com/?exp=pyconchina'
+            });
+        }
+      });
+      
+    </script>
+    <style type="text/css">
+      .fc-button-agendaDay{
+        display:none;
+      }
+      .main {
+        padding: 0px;
+      }
+      .calendar_container{
+        width: 100%;
+      }    
+      .glyphicon-chevron-right, .glyphicon-chevron-down{
+        margin-top: 20px;
+      }  
+      .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav-tabs>li>a,.nav-tabs>li>a:hover {
+        background:#fafafa;
+        color:#000;
+      }
+      .nav>li>a {
+        text-align:center;
+      }
+    </style>   
+  </head>  
+  <body>
+      <style type="text/css">
+          .container-fluid {
+            margin-top: 0px;
+          }
+          .col-xs-6{
+            padding-left: 0;
+            padding-right: 0;
+          }
+          .col-xs-3{
+            text-align:center;
+          }
+          .nav>li>a {
+            padding: 8px 15px;
+          }
+          .badge {
+            background-color: cadetblue;
+          }
+      </style>
+      <nav class="navbar-inverse" role="navigation" id="navigation" style="background:#f9f9f9;border-bottom:1px solid #eee">
+        <div class="container" >
+          <div class="navbar-header">
+             <div style="clear:both"></div>
+             <div style="padding:10px 15px 10px 15px">
+               <h4> 
+                    打包为Apk
+               </h4> 
+
+             </div>
+          </div>          
+      </nav>
+      <div class="fakeloader"></div>
+      <div class="container-fluid">  
+        <div class="con-glyphicons">
+          <div class="container-fluid" style="margin-top:0px;">
+            <div class="">
+              <ul id="myTab" class="nav nav-tabs" style="background:#fafafa;display:none">                        
+                <li class="active col-xs-6"><a href="#home" data-toggle="tab">Export</a></li>
+                <li class="col-xs-6"><a href="#about" data-toggle="tab">About</a></li>
+              </ul>                 
+              <div class="table-responsive">                     
+                <div id="myTabContent" class="tab-content">
+                   <div id="myAlert"></div> 
+                   <div class="tab-pane fade in active" id="home">
+                      <div class="main container" style="padding: 20px;">
+                        <p>
+
+                            QPython 已经将这一繁琐的过程自动化了，通过云端的打包服务，你只需要提交你的图标，名称，应用id, 应用main.py文件，和邮箱，稍等几分钟，即可收到APK应用。
+                            <br />
+                            <a href='#' id='back_to_builder'>马上回到QPython，试一试ApkBuilder吧。</a>
+                            <div style='text-align:center'>
+                                <img src='../assets/img/apk_builder.png' style='max-width:400px' width='100%'/>
+                                <br />
+                                <span style='color:grey'>图: ApkBuilder界面</span>
+                            </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <a href='chatroom.html' style='float:left'><< 上一步 （聊天室）</a>
+                        <a href='thanks.html' style='float:right'> 下一步（致谢） >></a>
+                   </div>
+                </div>   
+              </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </body>
+</html>

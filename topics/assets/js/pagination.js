@@ -1,0 +1,50 @@
+function pagination(url, page, total,last){
+  if(total== 0 || last==1){
+          $("#previous_page").hide()
+          $("#next_page").hide()
+          $("#index").hide()
+          $("#page_info").hide()
+          $("#last").hide()
+    }
+    else{
+      if(page==1){
+        $("#previous_page").hide()
+        $("#index").click(function(){
+          location.href=url;
+        });
+        $("#next_page").click(function(){          
+          location.href=url+'?page='+(page+1);
+        });            
+        $("#last").click(function(){
+          location.href=url+'?page='+last;
+        });
+      }
+      if(page<last &&page!=1){
+        $("#previous_page").click(function(){
+          location.href=url+'?page='+(page-1);
+        });
+        $("#index").click(function(){
+          location.href=url;
+        });
+        $("#next_page").click(function(){          
+          location.href=url+'?page='+(page+1);
+        });            
+        $("#last").click(function(){
+          location.href=url+'?page='+int(last);
+        });
+      }
+      if(page==last){
+        $("#previous_page").click(function(){
+          location.href=url+'?page='+(page-1);
+        });
+        $("#index").click(function(){
+          location.href=url;
+        });
+        $("#next_page").hide()
+        $("#last").click(function(){
+          location.href=url+'?page='+last;
+        });
+      }
+    }
+  
+}
